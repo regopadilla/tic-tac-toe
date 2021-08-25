@@ -1,5 +1,6 @@
 import React from 'react'
 import Square from '../components/Square'
+import './Board.css'
 
 class Board extends React.Component {
     constructor(props) {
@@ -16,6 +17,7 @@ class Board extends React.Component {
             isDraw: false
         };
     }
+    
     clickSquare = (locationX, locationY) => {
         const { boardValue, currentClick, haveWinner } = this.state
         let boardCopy = boardValue
@@ -64,6 +66,7 @@ class Board extends React.Component {
             this.setState({ isDraw: true })
         }
     }
+
     reset = () => {
         this.setState({
             currentClick: 0,
@@ -84,12 +87,12 @@ class Board extends React.Component {
         return (
             <div>
                 {haveWinner && <label style={{ color: winner === 'X' ? 'green' : 'blue', fontSize: 50 }}>WINNER: {winner}</label>}
-                {isDraw && <label style={{ color: 'red', fontSize: 50 }}>The game is DRAW!</label>}
-                <div style={{ display: 'flex', paddingBottom: 15, alignItems: 'center', justifyContent: 'center' }}>
-                    <div style={{ backgroundColor: 'white', width: 400, height: 400, display: 'flex', flexDirection: 'column' }}>
+                {isDraw && <label className="drawLabel">The game is DRAW!</label>}
+                <div className="boardWrapper">
+                    <div className="innerBoardWrapper">
                         {[0, 1, 2].map((x) => {
                             return (
-                                <div key={x} style={{ width: '100%', height: '33.3%', display: 'flex', flexDirection: 'row' }}>
+                                <div key={x} className="squareWrapper">
                                     {[0, 1, 2].map((y) => this.renderSquare(x, y))}
                                 </div>
                             )
@@ -98,7 +101,6 @@ class Board extends React.Component {
                 </div>
                 <button onClick={() => this.reset()} >Reset</button>
             </div>
-
         )
     }
 }
